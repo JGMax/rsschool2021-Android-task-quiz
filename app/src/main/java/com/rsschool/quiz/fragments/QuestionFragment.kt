@@ -1,4 +1,4 @@
-package com.rsschool.quiz
+package com.rsschool.quiz.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.rsschool.quiz.QuestionFragmentArgs
 import com.rsschool.quiz.databinding.FragmentQuizBinding
+import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
 
 class QuestionFragment : Fragment() {
     private var _binding: FragmentQuizBinding? = null

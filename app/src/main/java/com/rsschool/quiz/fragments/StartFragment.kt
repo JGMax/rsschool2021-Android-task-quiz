@@ -1,4 +1,4 @@
-package com.rsschool.quiz
+package com.rsschool.quiz.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.rsschool.quiz.R
+import com.rsschool.quiz.StartFragmentDirections
 import com.rsschool.quiz.databinding.FragmentStartBinding
+import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
+import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
 import com.rsschool.quiz.preferences.AppPreferences
 
 class StartFragment : Fragment() {

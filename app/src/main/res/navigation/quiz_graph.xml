@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/questionFragment"
-        android:name="com.rsschool.quiz.QuestionFragment"
+        android:name="com.rsschool.quiz.fragments.QuestionFragment"
         tools:layout="@layout/fragment_quiz">
         <argument
             android:name="numberOfQuestion"
@@ -36,13 +36,13 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.rsschool.quiz.StartFragment"
+        android:name="com.rsschool.quiz.fragments.StartFragment"
         android:label="StartFragment"
         tools:layout="@layout/fragment_start" />
 
     <fragment
         android:id="@+id/endFragment"
-        android:name="com.rsschool.quiz.EndFragment"
+        android:name="com.rsschool.quiz.fragments.EndFragment"
         android:label="EndFragment"
         tools:layout="@layout/fragment_end" />
 </navigation>

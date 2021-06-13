@@ -6,8 +6,11 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.rsschool.quiz.databinding.ActivityMainBinding
+import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
+import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
 
-class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface, OnBackPressedFragmentListener {
+class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
+    OnBackPressedFragmentListener {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
