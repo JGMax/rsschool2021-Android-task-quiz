@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.rsschool.quiz.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface {
+class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface, OnBackPressedFragmentListener {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -31,5 +31,9 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface {
 
     override fun setBackButtonVisibility(visibility: Boolean) {
         supportActionBar?.setDisplayHomeAsUpEnabled(visibility)
+    }
+
+    override fun onBackPressedFragment() {
+        onBackPressed()
     }
 }

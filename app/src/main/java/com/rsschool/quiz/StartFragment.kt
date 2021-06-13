@@ -25,12 +25,16 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
+
         with(binding) {
             updatePreviousResultView(preferences.getPreviousResult())
             startBtn.setOnClickListener { onStartClick() }
             resetBtn.setOnClickListener { onResetClick() }
-            exitBtn.setOnClickListener {  }
+            exitBtn.setOnClickListener {
+                (context as? OnBackPressedFragmentListener)?.onBackPressedFragment()
+            }
         }
+
         (context as? BackButtonVisibilityInterface)?.setBackButtonVisibility(false)
         return binding.root
     }
