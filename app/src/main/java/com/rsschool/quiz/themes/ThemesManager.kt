@@ -2,7 +2,6 @@ package com.rsschool.quiz.themes
 
 import com.rsschool.quiz.R
 
-
 object ThemesManager {
     private val themes =
         intArrayOf(
@@ -13,7 +12,7 @@ object ThemesManager {
 
     fun getTheme(questionNumber: Int) : Int {
         if (!shuffled) {
-            //themes.shuffle()
+            themes.shuffle()
             shuffled = true
         }
         return themes[questionNumber % themes.size]

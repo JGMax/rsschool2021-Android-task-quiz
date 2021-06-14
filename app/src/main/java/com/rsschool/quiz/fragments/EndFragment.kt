@@ -13,11 +13,12 @@ import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.FragmentEndBinding
 import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
+import com.rsschool.quiz.interfaces.SetThemeInterface
 import com.rsschool.quiz.interfaces.TitleChangeInterface
 import com.rsschool.quiz.preferences.AppPreferences
 import com.rsschool.quiz.questions.QuestionsManager
 
-class EndFragment : Fragment() {
+class EndFragment : Fragment(), SetThemeInterface {
     private var _binding: FragmentEndBinding? = null
     private val binding
         get() = _binding!!
@@ -34,6 +35,8 @@ class EndFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        setTheme(context, R.style.Theme_Quiz_End)
         _binding = FragmentEndBinding.inflate(inflater, container, false)
 
         with(binding) {

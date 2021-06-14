@@ -1,17 +1,26 @@
 package com.rsschool.quiz
 
+import android.R
 import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.rsschool.quiz.databinding.ActivityMainBinding
 import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
+import com.rsschool.quiz.interfaces.ChangeThemeInterface
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
 import com.rsschool.quiz.interfaces.TitleChangeInterface
 import com.rsschool.quiz.questions.Question
 import com.rsschool.quiz.questions.QuestionsManager
 
+
 class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
-    OnBackPressedFragmentListener, TitleChangeInterface {
+    OnBackPressedFragmentListener, TitleChangeInterface,
+    ChangeThemeInterface {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -54,5 +63,23 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
 
     override fun changeTitle(title: String) {
         supportActionBar?.title = title
+    }
+
+    override fun changeTheme(id: Int) {
+        setTheme(id)
+
+        val typedValue = TypedValue()
+        val theme: Resources.Theme = theme
+
+        theme.resolveAttribute(R.attr.windowBackground, typedValue, true)
+        window.decorView.setBackgroundColor(typedValue.data)
+
+        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(typedValue.data))
+
+        theme.resolveAttribute(R.attr.statusBarColor, typedValue, true)
+        val window: Window = window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = typedValue.data
     }
 }

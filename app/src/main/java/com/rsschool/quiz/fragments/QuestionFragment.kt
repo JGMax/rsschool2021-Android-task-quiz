@@ -12,13 +12,11 @@ import androidx.navigation.fragment.navArgs
 import com.rsschool.quiz.R
 import com.rsschool.quiz.themes.ThemesManager
 import com.rsschool.quiz.databinding.FragmentQuizBinding
-import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
-import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
-import com.rsschool.quiz.interfaces.TitleChangeInterface
+import com.rsschool.quiz.interfaces.*
 import com.rsschool.quiz.questions.Question
 import com.rsschool.quiz.questions.QuestionsManager
 
-class QuestionFragment : Fragment() {
+class QuestionFragment : Fragment(), SetThemeInterface {
     private var _binding: FragmentQuizBinding? = null
     private val binding
         get() = _binding!!
@@ -30,14 +28,13 @@ class QuestionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val args: QuestionFragmentArgs by navArgs()
         questionIdx = args.numberOfQuestion
-        context?.setTheme(ThemesManager.getTheme(questionIdx))
+
+        setTheme(context, ThemesManager.getTheme(questionIdx))
 
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
-
-        setTitle()
-        setBackButtonsVisibility()
 
         with(binding) {
             val question = QuestionsManager.getQuestion(questionIdx)
@@ -52,6 +49,8 @@ class QuestionFragment : Fragment() {
             nextButton.setOnClickListener { onNextClick() }
             previousButton.setOnClickListener { onPreviousClick() }
         }
+        setTitle()
+        setBackButtonsVisibility()
 
         return binding.root
     }
