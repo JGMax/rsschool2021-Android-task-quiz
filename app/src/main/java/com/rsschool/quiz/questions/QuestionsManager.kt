@@ -1,9 +1,10 @@
 package com.rsschool.quiz.questions
 
+import android.content.Context
+import com.rsschool.quiz.R
+
 object QuestionsManager {
     private var questions = listOf<Question>()
-
-    fun isEmpty() : Boolean = questions.isEmpty()
 
     fun isNotEmpty() : Boolean = questions.isNotEmpty()
 
@@ -27,11 +28,21 @@ object QuestionsManager {
         return null
     }
 
-    fun checkAnswer(questionIdx: Int, answerIdx: Int) : Boolean {
-        if (questionIdx in questions.indices) {
-            return questions[questionIdx].checkAnswer(answerIdx)
+    fun getResult() =
+        (questions.filter { it.checkAnswer() }.size.toFloat() / questions.size) * 100
+
+    fun getMessage(ctx: Context) : String {
+        var msg = """
+            ${ctx.getString(R.string.result)}: ${getResult()}
+            
+            
+        """.trimIndent()
+        questions.forEach {
+            msg += it.text + "\n"
+            msg += "${ctx.getString(R.string.your_answer)} ${it.answer}\n"
+            msg += "${ctx.getString(R.string.correct_answer)} ${it.correctAnswer}\n\n"
         }
-        return false
+        return msg.trimIndent()
     }
 
     fun hasNext(questionIdx: Int) = questionIdx in 0 until questions.lastIndex

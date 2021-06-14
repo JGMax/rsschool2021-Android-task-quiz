@@ -35,6 +35,7 @@ class StartFragment : Fragment() {
 
         with(binding) {
             updatePreviousResultView(preferences.getPreviousResult())
+            updateBestResultView(preferences.getBestResult())
             startBtn.setOnClickListener { onStartClick() }
             resetBtn.setOnClickListener { onResetClick() }
             exitBtn.setOnClickListener {
@@ -59,13 +60,18 @@ class StartFragment : Fragment() {
     }
 
     private fun onResetClick() {
-        preferences.setPreviousResult(0.0f)
+        preferences.setResult(0.0f)
         updatePreviousResultView(0.0f)
     }
 
     @SuppressLint("SetTextI18n")
     private fun updatePreviousResultView(newResult: Float) {
         binding.previousResult.text = "${getString(R.string.previous_result)} $newResult%"
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateBestResultView(newResult: Float) {
+        binding.bestResult.text = "${getString(R.string.best_result)} $newResult%"
     }
 
     override fun onDestroyView() {

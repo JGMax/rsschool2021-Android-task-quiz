@@ -6,9 +6,14 @@
     <string name="result">Result</string>
     <string name="best_quiz_ever">Best Quiz Ever</string>
     <string name="previous_result">Previous Result:</string>
-    <string name="exit">Exit</string>
     <string name="reset">Reset</string>
     <string name="start">Start</string>
     <string name="question">Question</string>
     <string name="no_questions">There are no questions</string>
+    <string name="share">Share</string>
+    <string name="back">Back</string>
+    <string name="exit">Exit</string>
+    <string name="best_result">Best Result:</string>
+    <string name="your_answer">Your answer:</string>
+    <string name="correct_answer">Correct answer:</string>
 </resources>

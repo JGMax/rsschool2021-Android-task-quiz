@@ -4,14 +4,25 @@ import android.content.Context
 
 class AppPreferences(private val ctx: Context) {
     private companion object {
-        const val PREVIOUS_NUMBER_KEY = "PREVIOUS_NUMBER"
+        const val BEST_RESULT_KEY = "BEST_RESULT_KEY"
         const val PREVIOUS_RESULT_KEY = "PREVIOUS_RESULT"
         const val PREFERENCES_NAME = "APP_PREFERENCES"
     }
 
-    fun setPreviousResult(previousResult: Float) {
+    fun setResult(newResult: Float) {
         val preferences = ctx.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
-        preferences.edit().putFloat(PREVIOUS_RESULT_KEY, previousResult).apply()
+        val max = getBestResult()
+        val editor = preferences.edit()
+        editor.putFloat(PREVIOUS_RESULT_KEY, newResult)
+        if (max < newResult) {
+            editor.putFloat(BEST_RESULT_KEY, newResult)
+        }
+        editor.apply()
+    }
+
+    fun getBestResult() : Float {
+        val preferences = ctx.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+        return preferences.getFloat(BEST_RESULT_KEY, 0.0f)
     }
 
     fun getPreviousResult() : Float {
