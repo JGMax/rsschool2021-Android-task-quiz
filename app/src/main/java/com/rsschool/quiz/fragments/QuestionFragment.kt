@@ -10,11 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rsschool.quiz.R
-import com.rsschool.quiz.themes.ThemesManager
 import com.rsschool.quiz.databinding.FragmentQuizBinding
-import com.rsschool.quiz.interfaces.*
+import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
+import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
+import com.rsschool.quiz.interfaces.SetThemeInterface
+import com.rsschool.quiz.interfaces.TitleChangeInterface
 import com.rsschool.quiz.questions.Question
 import com.rsschool.quiz.questions.QuestionsManager
+import com.rsschool.quiz.themes.ThemesManager
 
 class QuestionFragment : Fragment(), SetThemeInterface {
     private var _binding: FragmentQuizBinding? = null

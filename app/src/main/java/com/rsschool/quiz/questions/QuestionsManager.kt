@@ -4,9 +4,9 @@ import android.content.Context
 import com.rsschool.quiz.R
 
 object QuestionsManager {
-    private var questions = listOf<Question>()
+    private var questions = arrayOf<Question>()
 
-    fun isNotEmpty() : Boolean = questions.isNotEmpty()
+    fun isNotEmpty(): Boolean = questions.isNotEmpty()
 
     fun clearAnswers() {
         questions.forEach {
@@ -14,14 +14,22 @@ object QuestionsManager {
         }
     }
 
-    fun setQuestions(questions: List<Question>) {
+    fun shuffle() {
         questions.forEach {
             it.answers.shuffle()
         }
-        this.questions = questions.shuffled()
+        questions.shuffle()
     }
 
-    fun getQuestion(idx: Int) : Question? {
+    fun setQuestions(questions: Array<Question>) {
+        questions.forEach {
+            it.answers.shuffle()
+        }
+        questions.shuffle()
+        this.questions = questions
+    }
+
+    fun getQuestion(idx: Int): Question? {
         if (idx in questions.indices) {
             return questions[idx]
         }
@@ -31,7 +39,7 @@ object QuestionsManager {
     fun getResult() =
         (questions.filter { it.checkAnswer() }.size.toFloat() / questions.size) * 100
 
-    fun getMessage(ctx: Context) : String {
+    fun getMessage(ctx: Context): String {
         var msg = """
             ${ctx.getString(R.string.result)}: ${getResult()}
             

@@ -20,6 +20,15 @@ class AppPreferences(private val ctx: Context) {
         editor.apply()
     }
 
+    fun deleteResults() {
+        val preferences = ctx.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+        preferences
+            .edit()
+            .putFloat(PREVIOUS_RESULT_KEY, 0.0f)
+            .putFloat(BEST_RESULT_KEY, 0.0f)
+            .apply()
+    }
+
     fun getBestResult() : Float {
         val preferences = ctx.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
         return preferences.getFloat(BEST_RESULT_KEY, 0.0f)

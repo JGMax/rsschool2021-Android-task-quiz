@@ -2,19 +2,19 @@ package com.rsschool.quiz.questions
 
 class Question {
     var text = ""
-    var answers = arrayListOf<String>()
+    var answers = arrayOf<String>()
     var correctAnswer = ""
     var selectedAnswer = -1
-    val answer : String
-    get() {
-        return if(selectedAnswer in answers.indices) {
-            answers[selectedAnswer]
-        } else {
-            ""
+    val answer: String
+        get() {
+            return if (selectedAnswer in answers.indices) {
+                answers[selectedAnswer]
+            } else {
+                ""
+            }
         }
-    }
 
-    fun checkAnswer() : Boolean {
+    fun checkAnswer(): Boolean {
         if (selectedAnswer in answers.indices) {
             return answers[selectedAnswer] == correctAnswer
         }

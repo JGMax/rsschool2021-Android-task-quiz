@@ -10,7 +10,7 @@ object ThemesManager {
         )
     private var shuffled = false
 
-    fun getTheme(questionNumber: Int) : Int {
+    fun getTheme(questionNumber: Int): Int {
         if (!shuffled) {
             themes.shuffle()
             shuffled = true

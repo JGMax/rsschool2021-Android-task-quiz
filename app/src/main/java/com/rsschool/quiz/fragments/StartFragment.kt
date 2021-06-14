@@ -52,6 +52,7 @@ class StartFragment : Fragment(), SetThemeInterface {
 
     private fun onStartClick() {
         if (QuestionsManager.isNotEmpty()) {
+            QuestionsManager.shuffle()
             val action = StartFragmentDirections.actionToQuestion(0)
             findNavController().navigate(action)
         } else {
@@ -62,8 +63,9 @@ class StartFragment : Fragment(), SetThemeInterface {
     }
 
     private fun onResetClick() {
-        preferences.setResult(0.0f)
+        preferences.deleteResults()
         updatePreviousResultView(0.0f)
+        updateBestResultView(0.0f)
     }
 
     @SuppressLint("SetTextI18n")
