@@ -6,14 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.rsschool.quiz.R
-import com.rsschool.quiz.StartFragmentDirections
 import com.rsschool.quiz.databinding.FragmentStartBinding
 import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
+import com.rsschool.quiz.interfaces.TitleChangeInterface
 import com.rsschool.quiz.preferences.AppPreferences
+import com.rsschool.quiz.questions.QuestionsManager
 
 class StartFragment : Fragment() {
     private var _binding: FragmentStartBinding? = null
@@ -29,6 +31,7 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
+        QuestionsManager.clearAnswers()
 
         with(binding) {
             updatePreviousResultView(preferences.getPreviousResult())
@@ -40,12 +43,19 @@ class StartFragment : Fragment() {
         }
 
         (context as? BackButtonVisibilityInterface)?.setBackButtonVisibility(false)
+        (context as? TitleChangeInterface)?.changeTitle(getString(R.string.app_name))
         return binding.root
     }
 
     private fun onStartClick() {
-        val action = StartFragmentDirections.actionToQuestion(0)
-        findNavController().navigate(action)
+        if (QuestionsManager.isNotEmpty()) {
+            val action = StartFragmentDirections.actionToQuestion(0)
+            findNavController().navigate(action)
+        } else {
+            Toast
+                .makeText(context, getString(R.string.no_questions), Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
     private fun onResetClick() {

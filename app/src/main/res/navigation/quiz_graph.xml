@@ -13,6 +13,11 @@
             android:name="numberOfQuestion"
             app:argType="integer"
             android:defaultValue="0"/>
+
+        <action
+            android:id="@+id/actionToEnd"
+            app:destination="@id/endFragment"
+            app:popUpTo="@id/startFragment" />
     </fragment>
 
     <action
@@ -23,10 +28,6 @@
         android:id="@+id/actionToStart"
         app:destination="@id/startFragment"
         app:launchSingleTop="true" />
-
-    <action
-        android:id="@+id/actionToEnd"
-        app:destination="@id/endFragment" />
 
     <activity
         android:id="@+id/mainActivity"

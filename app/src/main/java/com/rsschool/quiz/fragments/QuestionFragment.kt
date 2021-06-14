@@ -1,20 +1,27 @@
 package com.rsschool.quiz.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.rsschool.quiz.QuestionFragmentArgs
+import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
+import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
+import com.rsschool.quiz.interfaces.TitleChangeInterface
+import com.rsschool.quiz.questions.QuestionsManager
 
 class QuestionFragment : Fragment() {
     private var _binding: FragmentQuizBinding? = null
     private val binding
         get() = _binding!!
+
+    private var questionIdx = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,18 +30,69 @@ class QuestionFragment : Fragment() {
     ): View {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
         val args: QuestionFragmentArgs by navArgs()
-        Log.e("args", args.numberOfQuestion.toString())
-        (context as? BackButtonVisibilityInterface)?.setBackButtonVisibility(true)
+        questionIdx = args.numberOfQuestion
+        (context as? TitleChangeInterface)
+            ?.changeTitle("${getString(R.string.question)} ${questionIdx + 1}")
+
+        with(binding) {
+            if (!QuestionsManager.hasNext(questionIdx)) {
+                nextButton.text = getString(R.string.submit)
+            }
+
+            if (questionIdx == 0) {
+                (context as? BackButtonVisibilityInterface)
+                    ?.setBackButtonVisibility(false)
+                previousButton.visibility = View.GONE
+            } else {
+                (context as? BackButtonVisibilityInterface)
+                    ?.setBackButtonVisibility(true)
+            }
+
+            val question = QuestionsManager.getQuestion(questionIdx)
+            question?.let {
+                questionView.text = it.text
+                it.answers.forEach { ans ->
+                    val button = RadioButton(context)
+                    button.text = ans
+                    radioGroup.addView(button)
+                }
+                if (it.selectedAnswer != -1) {
+                    radioGroup.check(radioGroup[0].id + it.selectedAnswer)
+                }
+                radioGroup.setOnCheckedChangeListener { group, checked ->
+                    val selectedIdx = checked - group[0].id
+                    QuestionsManager.getQuestion(questionIdx)?.selectedAnswer = selectedIdx
+                    nextButton.isEnabled = true
+                }
+            }
+
+            if (radioGroup.checkedRadioButtonId == -1) {
+                nextButton.isEnabled = false
+            }
+            nextButton.setOnClickListener { onNextClick() }
+            previousButton.setOnClickListener { onPreviousClick() }
+        }
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val args: QuestionFragmentArgs by navArgs()
-        Log.e("argCreated", args.numberOfQuestion.toString())
+    private fun onPreviousClick() {
+        (context as? OnBackPressedFragmentListener)?.onBackPressedFragment()
+    }
+
+    private fun onNextClick() {
+        if (QuestionsManager.hasNext(questionIdx)) {
+            val action = QuestionFragmentDirections
+                .actionToQuestion(questionIdx + 1)
+            findNavController().navigate(action)
+        } else {
+            val action = QuestionFragmentDirections.actionToEnd()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {
+        binding.radioGroup.removeAllViews()
         _binding = null
         super.onDestroyView()
     }
