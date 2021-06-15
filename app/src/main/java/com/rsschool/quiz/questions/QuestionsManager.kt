@@ -41,14 +41,13 @@ object QuestionsManager {
 
     fun getMessage(ctx: Context): String {
         var msg = """
-            ${ctx.getString(R.string.result)}: ${getResult()}
+            ${ctx.getString(R.string.result)}: ${getResult()}%
             
             
         """.trimIndent()
         questions.forEach {
             msg += it.text + "\n"
-            msg += "${ctx.getString(R.string.your_answer)} ${it.answer}\n"
-            msg += "${ctx.getString(R.string.correct_answer)} ${it.correctAnswer}\n\n"
+            msg += "${ctx.getString(R.string.your_answer)} ${it.answer}\n\n"
         }
         return msg.trimIndent()
     }

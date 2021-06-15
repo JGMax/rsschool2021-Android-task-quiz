@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
             }
         }
         QuestionsManager.setQuestions(createQuestions())
+        changeTheme(R.style.Theme_Quiz_Start)
     }
 
     private fun createQuestions(): Array<Question> {
