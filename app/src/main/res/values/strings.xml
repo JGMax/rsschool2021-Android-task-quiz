@@ -16,4 +16,7 @@
     <string name="best_result">Best Result:</string>
     <string name="your_answer">Your answer:</string>
     <string name="correct_answer">Correct answer:</string>
+    <string name="alert_massage">This action will remove your current progress. Do you want to continue?</string>
+    <string name="continue_btn">Continue</string>
+    <string name="cancel_btn">Cancel</string>
 </resources>

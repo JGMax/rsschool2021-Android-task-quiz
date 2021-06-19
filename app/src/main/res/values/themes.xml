@@ -62,7 +62,7 @@
         <item name="colorSecondary">@color/deep_purple_100</item>
         <item name="colorSecondaryVariant">@color/light_green_100_light</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/light_green_100_dark</item>
+        <item name="android:statusBarColor">@color/deep_purple_100_dark</item>
     </style>
 
     <style name="Theme.Quiz.Fifth" parent="Theme.Quiz">

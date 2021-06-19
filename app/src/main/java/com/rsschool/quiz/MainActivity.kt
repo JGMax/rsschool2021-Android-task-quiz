@@ -1,12 +1,17 @@
 package com.rsschool.quiz
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.rsschool.quiz.databinding.ActivityMainBinding
 import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
 import com.rsschool.quiz.interfaces.ChangeThemeInterface
@@ -23,6 +28,8 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private var controller: NavController? = null
+
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +41,7 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
             toolbarInclude.toolbar.setNavigationOnClickListener {
                 onBackPressedFragment()
             }
+            controller = findNavController(R.id.container)
         }
         QuestionsManager.setQuestions(createQuestions())
         changeTheme(R.style.Theme_Quiz_Start)
@@ -106,5 +114,30 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
         theme.resolveAttribute(android.R.attr.statusBarColor, typedValue, true)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = typedValue.data
+    }
+
+    override fun onBackPressed() {
+        val args = controller?.currentBackStackEntry?.arguments
+        if (args?.containsKey(NUMBER_OF_QUESTION_KEY) == true) {
+            val numOfQuestion = args.getInt(NUMBER_OF_QUESTION_KEY)
+            if (numOfQuestion == 0) {
+                AlertDialog
+                    .Builder(this)
+                    .setMessage(R.string.alert_massage)
+                    .setPositiveButton(R.string.continue_btn) { _, _ ->
+                        super.onBackPressed()
+                    }
+                    .setNegativeButton(R.string.cancel_btn) { dialog, _ ->
+                        dialog.cancel()
+                    }
+                    .show()
+                return
+            }
+        }
+        super.onBackPressed()
+    }
+
+    private companion object {
+        const val NUMBER_OF_QUESTION_KEY = "numberOfQuestion"
     }
 }
