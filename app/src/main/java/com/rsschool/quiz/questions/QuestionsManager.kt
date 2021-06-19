@@ -4,7 +4,7 @@ import android.content.Context
 import com.rsschool.quiz.R
 
 object QuestionsManager {
-    private var questions = arrayOf<Question>()
+    private var questions = arrayOf<QuestionModel>()
 
     fun isNotEmpty(): Boolean = questions.isNotEmpty()
 
@@ -21,7 +21,7 @@ object QuestionsManager {
         questions.shuffle()
     }
 
-    fun setQuestions(questions: Array<Question>) {
+    fun setQuestions(questions: Array<QuestionModel>) {
         questions.forEach {
             it.answers.shuffle()
         }
@@ -29,7 +29,7 @@ object QuestionsManager {
         this.questions = questions
     }
 
-    fun getQuestion(idx: Int): Question? {
+    fun getQuestion(idx: Int): QuestionModel? {
         if (idx in questions.indices) {
             return questions[idx]
         }

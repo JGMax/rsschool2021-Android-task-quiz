@@ -15,7 +15,7 @@ import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
 import com.rsschool.quiz.interfaces.SetThemeInterface
 import com.rsschool.quiz.interfaces.TitleChangeInterface
-import com.rsschool.quiz.questions.Question
+import com.rsschool.quiz.questions.QuestionModel
 import com.rsschool.quiz.questions.QuestionsManager
 import com.rsschool.quiz.themes.ThemesManager
 
@@ -76,9 +76,9 @@ class QuestionFragment : Fragment(), SetThemeInterface {
         }
     }
 
-    private fun generateRadioButtons(question: Question?) {
+    private fun generateRadioButtons(questionModel: QuestionModel?) {
         with(binding) {
-            question?.let {
+            questionModel?.let {
                 questionView.text = it.text
                 it.answers.forEach { ans ->
                     val button = RadioButton(context)

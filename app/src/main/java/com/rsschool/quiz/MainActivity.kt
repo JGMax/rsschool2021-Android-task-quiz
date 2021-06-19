@@ -1,24 +1,23 @@
 package com.rsschool.quiz
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.rsschool.quiz.databinding.ActivityMainBinding
+import com.rsschool.quiz.dialogs.DialogIds
 import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
 import com.rsschool.quiz.interfaces.ChangeThemeInterface
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
 import com.rsschool.quiz.interfaces.TitleChangeInterface
-import com.rsschool.quiz.questions.Question
+import com.rsschool.quiz.questions.QuestionModel
 import com.rsschool.quiz.questions.QuestionsManager
+import com.rsschool.quiz.dialogs.getDialog
 
 
 class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
@@ -47,28 +46,28 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
         changeTheme(R.style.Theme_Quiz_Start)
     }
 
-    private fun createQuestions(): Array<Question> {
-        val question1 = Question()
+    private fun createQuestions(): Array<QuestionModel> {
+        val question1 = QuestionModel()
         question1.text = "What is the largest animal?"
         question1.answers = arrayOf("Elephant", "Monkey", "Me", "Dog", "Bee", "Java", "Car")
         question1.correctAnswer = "Elephant"
 
-        val question2 = Question()
+        val question2 = QuestionModel()
         question2.text = "What is the meaning of life?"
         question2.answers = arrayOf("42", "Developing", "Money", "Family", "Love")
         question2.correctAnswer = "42"
 
-        val question3 = Question()
+        val question3 = QuestionModel()
         question3.text = "What is my name?"
         question3.answers = arrayOf("Max", "Mark", "Jarvis", "Ivan", "Nadya")
         question3.correctAnswer = "Max"
 
-        val question4 = Question()
+        val question4 = QuestionModel()
         question4.text = "What is the best language?"
         question4.answers = arrayOf("English", "Russian", "Kotlin", "Java", "Esperanto", "Python")
         question4.correctAnswer = "Kotlin"
 
-        val question5 = Question()
+        val question5 = QuestionModel()
         question5.text = "How are you?"
         question5.answers = arrayOf(
             "It has been better", "Not so bad", "Best of the best",
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
         )
         question5.correctAnswer = "I am a king of my life"
 
-        val question6 = Question()
+        val question6 = QuestionModel()
         question6.text = "Would you give 100 points to this app?"
         question6.answers = arrayOf(
             "Yes, of course", "No, it has some problems",
@@ -121,16 +120,9 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
         if (args?.containsKey(NUMBER_OF_QUESTION_KEY) == true) {
             val numOfQuestion = args.getInt(NUMBER_OF_QUESTION_KEY)
             if (numOfQuestion == 0) {
-                AlertDialog
-                    .Builder(this)
-                    .setMessage(R.string.alert_massage)
-                    .setPositiveButton(R.string.continue_btn) { _, _ ->
-                        super.onBackPressed()
-                    }
-                    .setNegativeButton(R.string.cancel_btn) { dialog, _ ->
-                        dialog.cancel()
-                    }
-                    .show()
+                getDialog(this,
+                    DialogIds.DIALOG_QUIT_FIRST_QUESTION,
+                    positiveAction = { super.onBackPressed() })
                 return
             }
         }

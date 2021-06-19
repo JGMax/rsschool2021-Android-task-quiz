@@ -1,6 +1,6 @@
 package com.rsschool.quiz.questions
 
-class Question {
+class QuestionModel {
     var text = ""
     var answers = arrayOf<String>()
     var correctAnswer = ""
