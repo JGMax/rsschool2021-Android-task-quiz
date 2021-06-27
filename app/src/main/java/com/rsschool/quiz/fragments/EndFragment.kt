@@ -19,8 +19,8 @@ import com.rsschool.quiz.questions.QuestionsManager
 
 class EndFragment : Fragment(), SetThemeInterface {
     private var _binding: FragmentEndBinding? = null
-    private val binding
-        get() = _binding!!
+    private val binding: FragmentEndBinding
+        get() = requireNotNull(_binding)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -21,8 +21,8 @@ import com.rsschool.quiz.themes.ThemesManager
 
 class QuestionFragment : Fragment(), SetThemeInterface {
     private var _binding: FragmentQuizBinding? = null
-    private val binding
-        get() = _binding!!
+    private val binding: FragmentQuizBinding
+        get() = requireNotNull(_binding)
 
     private var questionIdx = -1
 

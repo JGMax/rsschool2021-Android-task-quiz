@@ -20,8 +20,8 @@ import com.rsschool.quiz.questions.QuestionsManager
 
 class StartFragment : Fragment(), SetThemeInterface {
     private var _binding: FragmentStartBinding? = null
-    private val binding
-        get() = _binding!!
+    private val binding: FragmentStartBinding
+        get() = requireNotNull(_binding)
 
     private val preferences by lazy { AppPreferences(context as Context) }
 
