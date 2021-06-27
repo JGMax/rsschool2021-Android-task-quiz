@@ -1,5 +1,5 @@
 package com.rsschool.quiz.interfaces
 
-interface TitleChangeInterface {
+interface TitleChanger {
     fun changeTitle(title: String)
 }

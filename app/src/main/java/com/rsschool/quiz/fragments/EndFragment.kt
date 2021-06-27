@@ -10,22 +10,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.FragmentEndBinding
-import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
+import com.rsschool.quiz.interfaces.BackButtonVisibilityChanger
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
-import com.rsschool.quiz.interfaces.SetThemeInterface
-import com.rsschool.quiz.interfaces.TitleChangeInterface
+import com.rsschool.quiz.interfaces.FragmentThemeChanger
+import com.rsschool.quiz.interfaces.TitleChanger
 import com.rsschool.quiz.preferences.AppPreferences
 import com.rsschool.quiz.questions.QuestionsManager
 
-class EndFragment : Fragment(), SetThemeInterface {
+class EndFragment : Fragment(), FragmentThemeChanger {
     private var _binding: FragmentEndBinding? = null
     private val binding: FragmentEndBinding
         get() = requireNotNull(_binding)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (context as? BackButtonVisibilityInterface)?.setBackButtonVisibility(false)
-        (context as? TitleChangeInterface)?.changeTitle(getString(R.string.result))
+        (context as? BackButtonVisibilityChanger)?.setBackButtonVisibility(false)
+        (context as? TitleChanger)?.changeTitle(getString(R.string.result))
     }
 
     @SuppressLint("SetTextI18n")

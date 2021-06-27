@@ -1,5 +1,5 @@
 package com.rsschool.quiz.interfaces
 
-interface BackButtonVisibilityInterface {
+interface BackButtonVisibilityChanger {
     fun setBackButtonVisibility(visibility: Boolean)
 }

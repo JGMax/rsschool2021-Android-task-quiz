@@ -11,15 +11,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.FragmentQuizBinding
-import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
+import com.rsschool.quiz.interfaces.BackButtonVisibilityChanger
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
-import com.rsschool.quiz.interfaces.SetThemeInterface
-import com.rsschool.quiz.interfaces.TitleChangeInterface
+import com.rsschool.quiz.interfaces.FragmentThemeChanger
+import com.rsschool.quiz.interfaces.TitleChanger
 import com.rsschool.quiz.questions.QuestionModel
 import com.rsschool.quiz.questions.QuestionsManager
 import com.rsschool.quiz.themes.ThemesManager
 
-class QuestionFragment : Fragment(), SetThemeInterface {
+class QuestionFragment : Fragment(), FragmentThemeChanger {
     private var _binding: FragmentQuizBinding? = null
     private val binding: FragmentQuizBinding
         get() = requireNotNull(_binding)
@@ -59,18 +59,18 @@ class QuestionFragment : Fragment(), SetThemeInterface {
     }
 
     private fun setTitle() {
-        (context as? TitleChangeInterface)
+        (context as? TitleChanger)
             ?.changeTitle("${getString(R.string.question)} ${questionIdx + 1}")
     }
 
     private fun setBackButtonsVisibility() {
         with(binding) {
             if (questionIdx == 0) {
-                (context as? BackButtonVisibilityInterface)
+                (context as? BackButtonVisibilityChanger)
                     ?.setBackButtonVisibility(false)
                 previousButton.visibility = View.GONE
             } else {
-                (context as? BackButtonVisibilityInterface)
+                (context as? BackButtonVisibilityChanger)
                     ?.setBackButtonVisibility(true)
             }
         }

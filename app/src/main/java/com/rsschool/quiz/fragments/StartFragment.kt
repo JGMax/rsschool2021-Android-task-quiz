@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.FragmentStartBinding
-import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
+import com.rsschool.quiz.interfaces.BackButtonVisibilityChanger
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
-import com.rsschool.quiz.interfaces.SetThemeInterface
-import com.rsschool.quiz.interfaces.TitleChangeInterface
+import com.rsschool.quiz.interfaces.FragmentThemeChanger
+import com.rsschool.quiz.interfaces.TitleChanger
 import com.rsschool.quiz.preferences.AppPreferences
 import com.rsschool.quiz.questions.QuestionsManager
 
-class StartFragment : Fragment(), SetThemeInterface {
+class StartFragment : Fragment(), FragmentThemeChanger {
     private var _binding: FragmentStartBinding? = null
     private val binding: FragmentStartBinding
         get() = requireNotNull(_binding)
@@ -45,8 +45,8 @@ class StartFragment : Fragment(), SetThemeInterface {
             }
         }
 
-        (context as? BackButtonVisibilityInterface)?.setBackButtonVisibility(false)
-        (context as? TitleChangeInterface)?.changeTitle(getString(R.string.app_name))
+        (context as? BackButtonVisibilityChanger)?.setBackButtonVisibility(false)
+        (context as? TitleChanger)?.changeTitle(getString(R.string.app_name))
         return binding.root
     }
 

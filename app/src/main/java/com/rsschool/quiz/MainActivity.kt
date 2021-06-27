@@ -11,18 +11,18 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.rsschool.quiz.databinding.ActivityMainBinding
 import com.rsschool.quiz.dialogs.DialogIds
-import com.rsschool.quiz.interfaces.BackButtonVisibilityInterface
-import com.rsschool.quiz.interfaces.ChangeThemeInterface
+import com.rsschool.quiz.interfaces.BackButtonVisibilityChanger
+import com.rsschool.quiz.interfaces.ActivityThemeChanger
 import com.rsschool.quiz.interfaces.OnBackPressedFragmentListener
-import com.rsschool.quiz.interfaces.TitleChangeInterface
+import com.rsschool.quiz.interfaces.TitleChanger
 import com.rsschool.quiz.questions.QuestionModel
 import com.rsschool.quiz.questions.QuestionsManager
 import com.rsschool.quiz.dialogs.getDialog
 
 
-class MainActivity : AppCompatActivity(), BackButtonVisibilityInterface,
-    OnBackPressedFragmentListener, TitleChangeInterface,
-    ChangeThemeInterface {
+class MainActivity : AppCompatActivity(), BackButtonVisibilityChanger,
+    OnBackPressedFragmentListener, TitleChanger,
+    ActivityThemeChanger {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
