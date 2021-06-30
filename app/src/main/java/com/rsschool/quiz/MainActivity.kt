@@ -42,8 +42,10 @@ class MainActivity : AppCompatActivity(), BackButtonVisibilityChanger,
             }
             controller = findNavController(R.id.container)
         }
-        QuestionsManager.setQuestions(createQuestions())
-        changeTheme(R.style.Theme_Quiz_Start)
+        if (savedInstanceState == null) {
+            QuestionsManager.setQuestions(createQuestions())
+            changeTheme(R.style.Theme_Quiz_Start)
+        }
     }
 
     private fun createQuestions(): Array<QuestionModel> {
